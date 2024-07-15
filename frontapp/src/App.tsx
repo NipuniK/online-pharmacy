@@ -1,34 +1,19 @@
-import ProductDescription from './com/ProductDescription';
-import Login from './com/Login';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home';
 import Footer from './com/Footer';
 
-import './App.css'
-
-const App: React.FC = () => {
-  const product = {
-    brand_name: 'Product Title',
-    pharm_name: 'NAME',
-    description: 'This is a description of the product.',
-    imageUrl: './image1.jpg' ,
-    is_stock:true
-    
-  };
-
-  
+function App() {
   return (
-    
-      <div className="container mt-5">
-      <ProductDescription 
-        brand_name={product.brand_name}
-        pharm_name={product.pharm_name}
-        description={product.description}
-        imageUrl={product.imageUrl}
-        is_stock={product.is_stock}
-      />
-      <Login/>
-      <Footer/>
-    </div>
   
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Footer />
+      </div>
+   
   );
-};
+}
+
 export default App;
