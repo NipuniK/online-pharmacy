@@ -1,7 +1,7 @@
-
-
-
 import ProductDescription from './com/ProductDescription';
+import Login from './com/Login';
+import Footer from './com/Footer';
+
 import './App.css'
 
 const App: React.FC = () => {
@@ -25,6 +25,8 @@ const App: React.FC = () => {
         imageUrl={product.imageUrl}
         is_stock={product.is_stock}
       />
+      <Login/>
+      <Footer/>
     </div>
   
   );
