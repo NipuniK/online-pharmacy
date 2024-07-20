@@ -17,12 +17,12 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({ brand_name,phar
           <img src={imageUrl} className="img-fluid rounded-start" alt={brand_name} />
         </div>
         <div className="col-md-8">
-          <div className="card-body margin right">
-          {is_stock===true?
-          <button type="button" className="btn btn-primary">
-            out of Stock</button>
-          : null
-          }
+          <div className="card-body margin right text-left">
+          {!is_stock && (
+              <button type="button" className="btn btn-primary mb-2">
+                Out of Stock
+              </button>
+            )}
             <h4 className="card-title">{brand_name}</h4>
             <h6 className="card-text">{pharm_name}</h6>
             <p className="card-text">{description}</p>
