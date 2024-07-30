@@ -1,7 +1,7 @@
 
-
-const router =require('express').Router();
-let Product = require('../model/product.model');
+import express from 'express'; 
+import {Product, IProduct} from '../model/product.model';
+const router = express.Router();
 
 const newProduct = new Product({
     name: 'Aspirin',
@@ -13,16 +13,16 @@ const newProduct = new Product({
   
   newProduct.save()
     .then(() => console.log('Product created!'))
-    .catch(err => console.error('Error creating product:', err));
+    .catch((err:Error) => console.error('Error creating product:', err));
   
     Product.findOne({ name: 'Aspirin' })
-  .then(product => console.log(product))
-  .catch(err => console.error('Error finding product:', err));
+  .then((product:IProduct| null) => console.log(product))
+  .catch((err:unknown) => console.error('Error finding product:', err));
 
-  Product.findByIdAndUpdate(productId, { price: 8.99 })
+  Product.findByIdAndUpdate({productId: Product}, { price: 8.99 })
   .then(() => console.log('Product updated!'))
-  .catch(err => console.error('Error updating product:', err));
+  .catch((err:unknown) => console.error('Error updating product:', err));
 
-  Product.findByIdAndDelete(productId)
+  Product.findByIdAndDelete({productId: Product})
   .then(() => console.log('Product deleted!'))
-  .catch(err => console.error('Error deleting product:', err));
+  .catch((err:unknown) => console.error('Error deleting product:', err));

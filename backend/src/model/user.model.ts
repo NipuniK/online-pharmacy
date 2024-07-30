@@ -1,15 +1,13 @@
 import { Schema, model, Document } from 'mongoose';
 
 // Interface representing a User document in MongoDB
-interface IUser extends Document {
+export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
   firstName?: string;
   lastName?: string;
-  dateOfBirth?: Date;
-  createdAt: Date;
-  updatedAt: Date;
+
 }
 
 // Schema definition
@@ -19,7 +17,7 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
-  dateOfBirth: { type: Date, required: false },
+ 
   
 });
 
