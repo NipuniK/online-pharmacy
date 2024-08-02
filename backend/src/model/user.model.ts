@@ -12,9 +12,9 @@ export interface IUser extends Document {
 
 // Schema definition
 const userSchema = new Schema<IUser>({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  username: { type: String, required: true },
+  email: { type: String, required: false },
+  password: { type: String, required: false },
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
  
@@ -23,7 +23,8 @@ const userSchema = new Schema<IUser>({
 
 // Pre-save hook to update the updatedAt field
 userSchema.pre('save', function (next) {
- 
+  
+
   next();
 });
 
