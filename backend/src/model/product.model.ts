@@ -1,9 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface IProduct extends Document {
-  name: string;
+  brand_name: string;
+  pharm_name: string;
+  description: string;
   price: number;
-  description?: string;
   category?: string;
   stock: number;
   createdAt: Date;
@@ -12,11 +13,12 @@ export interface IProduct extends Document {
 
 // Schema definition
 const productSchema = new Schema<IProduct>({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
+  brand_name: { type: String, required: true },
+  pharm_name: { type: String, required: true },
+  price: { type: Number },
   description: { type: String },
   category: { type: String },
-  stock: { type: Number, required: true },
+  stock: { type: Number},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

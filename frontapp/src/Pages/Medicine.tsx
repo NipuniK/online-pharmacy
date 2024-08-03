@@ -1,8 +1,25 @@
-import React from 'react';
-import { medicines, Medicine } from '../Data/Medicine';
+//import React from 'react';
+import api from '../services/api';
+import React, { useEffect, useState } from 'react';
+import {  Medicine } from '../Data/Medicine';
 import ProductDescription from '../com/ProductDescription';
 
 const Medicines: React.FC = () => {
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
+
+  useEffect(() => {
+    const fetchMedicines = async () => {
+      try {
+        const response = await api.get('/product'); // Ensure this endpoint matches your backend
+        setMedicines(response.data);
+      } catch (error) {
+        console.error('Error fetching medicines:', error);
+      }
+    };
+
+    fetchMedicines();
+  }, []);
+
     return (
       <div className="container mt-5">
         <h1>Available Medicines</h1>
@@ -13,8 +30,9 @@ const Medicines: React.FC = () => {
                 brand_name={medicine.brand_name}
                 pharm_name={medicine.pharm_name}
                 description={medicine.description}
+                price={medicine.price} 
                 imageUrl={medicine.imageUrl}
-                is_stock={medicine.is_stock}
+                stock={medicine.stock}
               />
             </div>
           ))}
