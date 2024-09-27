@@ -10,7 +10,9 @@ const Medicines: React.FC = () => {
   useEffect(() => {
     const fetchMedicines = async () => {
       try {
-        const response = await api.get('/product'); // Ensure this endpoint matches your backend
+        
+        const response = await api.get('/product');
+
         setMedicines(response.data);
       } catch (error) {
         console.error('Error fetching medicines:', error);

@@ -18,5 +18,15 @@ export interface Medicine {
       imageUrl: './image1.jpg',
       stock: 100
     },
+
+    {
+      id: 2,
+      brand_name: 'Health Mart Multivitamins',
+      pharm_name: 'Health Mart Pharmacy',
+      description: 'A comprehensive multivitamin for daily health.',
+      price:100,
+      imageUrl: './image1.jpg',
+      stock: 100
+    },
     
   ]
