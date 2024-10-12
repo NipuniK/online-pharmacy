@@ -6,20 +6,25 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
-const Owner= new Login({
-    username:'malithi',
-    passwored:'1234fr'
-})
-
+// POST /api/login
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  
-  const login = await Login.findOne({ username });
-  if (!login) return res.status(404).json({ message: 'User not found' });
+  const { email, password } = req.body;
+  try {
+    const user = await Login.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
 
-  const isMatch = await bcrypt.compare(password, login.password);
-  if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
 
+    const token = jwt.sign({ userId: user._id }, 'jwtSecret', { expiresIn: '1h' });
+    res.json({ token });
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
 });
 
 export default router;

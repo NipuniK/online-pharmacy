@@ -3,20 +3,6 @@ import { User, IUser } from '../model/user.model';
 const router = express.Router();
 
 
-const newUser:IUser= new User({
-  
-  username: 'john',
-  email: 'johnexample.com',
-  password: 'securepassword123',
-  firstName: 'John',
-  lastName: 'Doe',
-
-
-});
-newUser.save()
-.then(() => console.log('User created!'))
-.catch((err:Error) => console.error('Error creating product:', err));
-
 // Find a user by email
 router.get('/user', async (req, res) => {
   try {

@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import productRoutes from './routes/product';
 import userRoutes from './routes/user';
+import authRoutes from './routes/auth'
+import protectedRoutes from './routes/login';
 dotenv.config();
 
 
@@ -25,3 +27,5 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://nipunikfernando:4qXS2NN
 
   app.use('/api', productRoutes);
   app.use('/api', userRoutes);
+  app.use('/api', authRoutes);
+app.use('/api', protectedRoutes);

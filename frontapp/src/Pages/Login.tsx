@@ -1,20 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+
+  const handleLogin =async (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement your login logic here
-    // For example, authenticate with a backend service
-    console.log('Logging in with:', { email, password });
-    // If successful, navigate to another page, e.g., the home page
-    navigate('/');
+    try {
+      // Make a POST request to the login endpoint of your backend
+      const response = await axios.post('http://localhost:5000/api/login', {
+        email,
+        password,
+      });
+
+      // Store the JWT token in localStorage (or sessionStorage)
+      localStorage.setItem('token', response.data.token);
+
+      // Navigate to another page, e.g., the dashboard, if login is successful
+      navigate('/');
+
+    } catch (err) {
+      // Handle errors, e.g., invalid login credentials
+      setError('Login failed. Please check your credentials and try again.');
+    }
+   
   };
+
+  
 
   return (
     <div className="container mt-5">
