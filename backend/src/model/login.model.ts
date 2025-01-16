@@ -32,28 +32,5 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
 
 const Login = mongoose.model<ILogin>('Login', userSchema);
 
-// === TEMPORARY: Create a hardcoded user (for testing purposes) ===
-const createHardcodedUser = async () => {
-  try {
-    const user = await Login.findOne({ email: 'user@example.com' });
-    if (!user) {
-      const hashedPassword = await bcrypt.hash('password123', 10);
-      const newUser = new Login({
-        email: 'user@example.com',
-        password: hashedPassword, // Store the hashed password
-      });
-      await newUser.save();
-      console.log('Hardcoded user created!');
-    } else {
-      console.log('User already exists!');
-    }
-  } catch (error) {
-    console.error('Error creating user:', error);
-  }
-};
-
-// Call the function to create a hardcoded user when this file is executed
-createHardcodedUser();
-
 
 export default Login;

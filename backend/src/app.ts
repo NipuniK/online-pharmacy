@@ -1,16 +1,26 @@
 
 // src/app.ts
 import express from 'express';
+import cors from 'cors';
+import productRoutes from './routes/product';
+import userRoutes from './routes/user';
+import authRoutes from './routes/auth';
 
+// Create an Express application
 const app = express();
-const PORT = process.env.PORT || 5000;
 
+// Middleware for parsing JSON
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
+// Enable CORS for frontend requests (adjust as needed)
+app.use(cors({
+  origin: 'http://localhost:5173'  // Allow requests from your frontend
+}));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Define routes
+app.use('/api', productRoutes);
+app.use('/api', userRoutes);
+app.use('/api', authRoutes);
+
+// Export the app without starting the server (this will be done in index.ts)
+export default app;

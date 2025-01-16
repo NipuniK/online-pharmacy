@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +15,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       // Make a POST request to the login endpoint of your backend
-      const response = await axios.post('http://localhost:5000/api/login', {
+      const response = await axios.post('http://localhost:3000/api/login', {
         email,
         password,
       });
@@ -27,10 +29,11 @@ const Login: React.FC = () => {
     } catch (err) {
       // Handle errors, e.g., invalid login credentials
       setError('Login failed. Please check your credentials and try again.');
+      console.error('Error during login:', err);
     }
    
   };
-
+ 
   
 
   return (
@@ -64,7 +67,11 @@ const Login: React.FC = () => {
                   />
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Login</button>
+                
               </form>
+              <p>
+              Don't have an account? <Link to="/register">Register here</Link>
+              </p>
             </div>
           </div>
         </div>

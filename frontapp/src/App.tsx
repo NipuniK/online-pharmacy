@@ -8,8 +8,10 @@ import Navigation from './com/Navigation';
 import Contact from './Pages/Contact';
 import AdminNav from './com/AdminNav';
 import AddNewProduct from './adminPages/AddNewProduct';
-import Login from './com/Login';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
 import React, { useEffect, useState } from 'react';
+
 
 function App() {
 
@@ -39,7 +41,8 @@ function App() {
           <Route path="/Medicines" element={<Medicines />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/ProductForm" element={<AddNewProduct />}/>
-          <Route path="/login" Component={Login} />
+          <Route path="/login" element={<Login />} />
+          <Route path='/Register' element={<Register />}/>
         </Routes>
         <Footer />
       </div>
