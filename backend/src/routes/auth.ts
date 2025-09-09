@@ -1,47 +1,45 @@
-// routes/auth.routes.ts
-import express from 'express';
-import UserService from'../middleware/service';
+import { Router } from "express";
+import UserService from "../middleware/service";
 
-const router = express.Router();
+const router = Router();
 
-// POST /api/register (User Signup)
-router.post('/register', async (req, res) => {
+// POST /api/register
+router.post("/register", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const token = await UserService.register(email, password); // Call the registration service
-    res.json({ token }); // Return JWT token on successful registration
+    const token = await UserService.register(email, password);
+    res.json({ token });
   } catch (err) {
     if (err instanceof Error) {
       res.status(400).json({ msg: err.message });
     } else {
-      res.status(400).json({ msg: 'An unknown error occurred' });
+      res.status(400).json({ msg: "An unknown error occurred" });
     }
   }
 });
 
-// POST /api/login (User Login)
-router.post('/login', async (req, res) => {
+// POST /api/login
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const token = await UserService.login(email, password); // Call the login service
-    res.json({ token }); // Return JWT token on successful login
+    const token = await UserService.login(email, password);
+    res.json({ token });
   } catch (err) {
     if (err instanceof Error) {
       res.status(400).json({ msg: err.message });
     } else {
-      res.status(400).json({ msg: 'An unknown error occurred' });
+      res.status(400).json({ msg: "An unknown error occurred" });
     }
   }
 });
 
-// POST /api/logout (User Logout)
-router.post('/logout', (req, res) => {
-  // In practice, just clear the token in the frontend (e.g., localStorage)
+// POST /api/logout
+router.post("/logout", (req, res) => {
   try {
     const message = UserService.logout();
     res.json({ msg: message });
   } catch (err) {
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 

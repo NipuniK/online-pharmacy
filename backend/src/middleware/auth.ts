@@ -1,24 +1,45 @@
-// middleware/auth.ts
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import express from 'express';
+import UserService from '../middleware/service';
+const router = express.Router();
 
-interface AuthenticatedRequest extends Request {
-  user?: string;
-}
-
-const auth = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  const token = req.header('Authorization');
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-
+// POST /api/register
+router.post('/register', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const decoded = jwt.verify(token, 'jwtSecret') as { userId: string };
-    req.user = decoded.userId;
-    next();
+    const token = await UserService.register(email, password);
+    res.json({ token });
   } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
+    if (err instanceof Error) {
+      res.status(400).json({ msg: err.message });
+    } else {
+      res.status(400).json({ msg: 'An unknown error occurred' });
+    }
   }
-};
+});
 
-export default auth;
+// POST /api/login
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const token = await UserService.login(email, password); // Use service
+    res.json({ token });
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(400).json({ msg: err.message });
+    } else {
+      res.status(400).json({ msg: 'An unknown error occurred' });
+    }
+  }
+});
+
+// POST /api/logout
+router.post('/logout', (req, res) => {
+  try {
+    const message = UserService.logout();
+    res.json({ msg: message });
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
+
+export default router;

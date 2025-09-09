@@ -10,32 +10,44 @@ class UserService {
     if (existingUser) {
       throw new Error('User already exists');
     }
-
+     console.log("this is  register attement:", email);
+    console.log("Password from frontend:", password);
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new Login({ email, password: hashedPassword });
     await newUser.save();
+    
+    console.log("Password from DB:", newUser.password);
+
 
     const token = this.generateToken((newUser as typeof newUser & { _id: string })._id.toString()); 
     return token;
   }
 
   // Login a user
-  async login(email: string, password: string) {
-    const user = await Login.findOne({ email });
-    if (!user) {
-      throw new Error('Invalid credentials');
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      throw new Error('Invalid credentials');
-    }
-
-    const token = this.generateToken((user as typeof user &{_id: string} )._id.toString());
-    return token;
+async login(email: string, password: string) {
+  const user = await Login.findOne({ email });
+  if (!user) {
+    console.log("User not found for email:", email);
+    throw new Error("Invalid credentials");
   }
+
+  // ✅ Add debug logs here
+  console.log("this is  login attement:", email);
+  console.log("Password from frontend:", password);
+  console.log("Password from DB:", user.password);
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  console.log("Password match:", isMatch); // will print true or false
+
+  if (!isMatch) {
+    throw new Error("Invalid credentials");
+  }
+
+  const token = this.generateToken((user as typeof user & { _id: string })._id.toString());
+  return token;
+}
 
   // Generate a JWT token
   private generateToken(userId: string) {
