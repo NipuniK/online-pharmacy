@@ -1,49 +1,106 @@
-import React from 'react';
-import Carousel from '../com/Carousel';
+import React from "react";
+import Carousel from "../com/Carousel";
 
 const Home: React.FC = () => {
   return (
     <>
-     <div className="App">
-      <Carousel />
-      </div>
-    <div className="container-fluid p-5 bg-dark text-white text-center">
-      <h1>HEALTH MART</h1>
-      <p>where health meets convenience......................</p>
-  
-
-    </div>
-
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-sm-6">
-        
-          <h6>Welcome to Health Mart, your one-stop online pharmacy for all your healthcare needs. At Health Mart, we prioritize your health and convenience. Our easy-to-use platform allows you to quickly check the availability of medicines and book them with just a few clicks. Whether you're looking for prescription medications or over-the-counter products, we ensure that you have access to the best quality medicines. Experience hassle-free, reliable, and efficient service with Health Mart – where health meets convenience.</h6>
-          
+      {/* Hero Section */}
+      <div className="bg-light text-dark text-center py-5">
+        <h1 className="display-4 fw-bold mt-4">Your Health, Our Priority</h1>
+        <p className="lead">Trusted Online Pharmacy at Your Doorstep</p>
+        <div className="mt-3">
+          <button className="btn btn-primary mx-2">Shop Now</button>
+          <button className="btn btn-outline-primary mx-2">View Medicines</button>
         </div>
-      <div className="col-sm-6">
-      
-      <img className="img-fluid" src="home1.jpg"   alt="New York" width="800" height="50" > 
-  </img>
-    </div>
-    
-  </div>
+      </div>
 
+      {/* Categories */}
+      <div className="container my-5">
+        <h3 className="text-center mb-4">Featured Categories</h3>
+        <div className="row text-center">
+          <div className="col-md-3 mb-3">
+            <div className="card p-3 shadow-sm">
+              <i className="bi bi-capsule fs-1"></i>
+              <h6 className="mt-2">Prescription Medicines</h6>
+            </div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div className="card p-3 shadow-sm">
+              <i className="bi bi-bandaid fs-1"></i>
+              <h6 className="mt-2">Over-the-Counter (OTC)</h6>
+            </div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div className="card p-3 shadow-sm">
+              <i className="bi bi-heart-pulse fs-1"></i>
+              <h6 className="mt-2">Vitamins & Supplements</h6>
+            </div>
+          </div>
+          <div className="col-md-3 mb-3">
+            <div className="card p-3 shadow-sm">
+              <i className="bi bi-person-hearts fs-1"></i>
+              <h6 className="mt-2">Personal Care</h6>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {/* Featured Products */}
+      <div className="container my-5">
+        <h3 className="text-center mb-4">Featured Products</h3>
+        <div className="row text-center">
+          {[1, 2, 3, 4].map((item) => (
+            <div key={item} className="col-md-3 mb-3">
+              <div className="card p-3 shadow-sm">
+                <img
+                  src={`product${item}.jpg`}
+                  alt={`Product ${item}`}
+                  className="img-fluid mb-2"
+                />
+                <h6>Product {item}</h6>
+                <p>$15</p>
+                <button className="btn btn-sm btn-primary">Add to Cart</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
-</div>
-<div className="container pt-5">
-  
-  <h5></h5>
-  
-</div>
-<div className="container">
-  
-  <p>Resize the browser window to see that the container width will change at different breakpoints.</p>
-</div>
+      {/* Search Bar */}
+      <div className="container my-5 text-center">
+        <input
+          type="text"
+          className="form-control w-75 mx-auto"
+          placeholder="Search medicines, brands, or health products"
+        />
+      </div>
 
-</>
+      {/* Services Section */}
+      <div className="container my-5">
+        <div className="row text-center">
+          <div className="col-md-4">
+            <i className="bi bi-truck fs-1"></i>
+            <p className="mt-2">Delivery within 24 hours</p>
+          </div>
+          <div className="col-md-4">
+            <i className="bi bi-shield-check fs-1"></i>
+            <p className="mt-2">Verified medicines only</p>
+          </div>
+          <div className="col-md-4">
+            <i className="bi bi-headset fs-1"></i>
+            <p className="mt-2">
+              Safe, affordable, and fast delivery to your doorstep
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-dark text-white text-center py-4">
+        <p className="mb-0">© 2025 Health Mart | All Rights Reserved</p>
+      </div>
+    </>
   );
-}
+};
 
 export default Home;
