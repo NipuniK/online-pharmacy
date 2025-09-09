@@ -12,13 +12,10 @@ class UserService {
     }
      console.log("this is  register attement:", email);
     console.log("Password from frontend:", password);
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new Login({ email, password: hashedPassword });
-    await newUser.save();
-    
-    console.log("Password from DB:", newUser.password);
+  const newUser = new Login({ email, password });
+  await newUser.save();
+  console.log("Password from DB:", newUser.password);
 
 
     const token = this.generateToken((newUser as typeof newUser & { _id: string })._id.toString()); 
