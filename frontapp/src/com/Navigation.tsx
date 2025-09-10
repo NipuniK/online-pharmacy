@@ -53,6 +53,14 @@ const Navigation: React.FC = () => {
                 Contact Us
               </Link>
             </li>
+            
+            {isLoggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/AddNewProduct">
+                  Add New Product
+                </Link>
+              </li>
+            )}
           </ul>
 
           {isLoggedIn ? (

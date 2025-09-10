@@ -23,4 +23,14 @@ router.post('/product', async (req, res) => {
   }
 });
 
+router.post("/products", async (req, res) => {
+  try {
+    const newProduct = new Product(req.body); // data from frontend
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
+  } catch (error) {
+    res.status(400).json({ message: "Error creating product", error });
+  }
+});
+
 export default router;

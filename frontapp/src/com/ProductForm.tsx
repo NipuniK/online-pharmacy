@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
 
-interface ProductFormProps {
-  onSubmit: (data: ProductFormData) => void;
-}
-
 interface ProductFormData {
+  _id: string;
   brand_name: string;
   pharm_name: string;
   description: string;
   price: number;
+  category: string;
+  stock: number;
   imageUrl: string;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
+interface ProductFormProps {
+  onSubmit: (data: ProductFormData) => void;
+  initialData?: Partial<ProductFormData>; // optional for edit
+}
+
+const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
   const [formData, setFormData] = useState<ProductFormData>({
-    brand_name: '',
-    pharm_name: '',
-    description: '',
-    price: 0,
-    imageUrl: '',
+    _id: initialData?._id || "",
+    brand_name: initialData?.brand_name || "",
+    pharm_name: initialData?.pharm_name || "",
+    description: initialData?.description || "",
+    price: initialData?.price || 0,
+    category: initialData?.category || "",
+    stock: initialData?.stock || 0,
+    imageUrl: initialData?.imageUrl || "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'price' ? parseFloat(value) : value,
+      [name]:
+        name === "price" || name === "stock"
+          ? parseFloat(value) || 0
+          : value,
     });
   };
 
@@ -48,6 +58,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
+
       <div className="form-group mb-3">
         <label htmlFor="pharm_name">Pharmacy Name:</label>
         <input
@@ -60,6 +71,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
+
       <div className="form-group mb-3">
         <label htmlFor="description">Description:</label>
         <textarea
@@ -72,6 +84,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
+
       <div className="form-group mb-3">
         <label htmlFor="price">Price:</label>
         <input
@@ -84,6 +97,33 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
           required
         />
       </div>
+
+      <div className="form-group mb-3">
+        <label htmlFor="category">Category:</label>
+        <input
+          type="text"
+          className="form-control"
+          id="category"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group mb-3">
+        <label htmlFor="stock">Stock:</label>
+        <input
+          type="number"
+          className="form-control"
+          id="stock"
+          name="stock"
+          value={formData.stock}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
+      {/* Optional: Image URL (not in DB model, but useful for frontend display) */}
       <div className="form-group mb-3">
         <label htmlFor="imageUrl">Image URL:</label>
         <input
@@ -93,14 +133,31 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit }) => {
           name="imageUrl"
           value={formData.imageUrl}
           onChange={handleChange}
-          required
         />
       </div>
-    
-    
+
       <div className="form-inline d-flex justify-content-end">
-      <button type="submit" className="btn btn-primary mb-2 me-2 text-success bg-white">CANCEL</button>
-      <button type="submit" className="btn btn-primary mb-2 bg-success text-white"> SAVE </button>
+        <button
+          type="button"
+          className="btn btn-outline-secondary mb-2 me-2"
+          onClick={() =>
+            setFormData({
+              _id: '',
+              brand_name: '',
+              pharm_name: '',
+              description: '',
+              price: 0,
+              category: '',
+              stock: 0,
+              imageUrl: '',
+            })
+          }
+        >
+          Cancel
+        </button>
+        <button type="submit" className="btn btn-success mb-2">
+          Save
+        </button>
       </div>
     </form>
   );

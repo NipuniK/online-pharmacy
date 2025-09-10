@@ -2,6 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface IProduct extends Document {
   brand_name: string;
+  _id: string; 
   pharm_name: string;
   description: string;
   price: number;

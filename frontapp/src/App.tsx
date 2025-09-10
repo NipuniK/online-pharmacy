@@ -11,6 +11,7 @@ import AddNewProduct from './adminPages/AddNewProduct';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import React, { useEffect, useState } from 'react';
+import EditProduct from './adminPages/EditProduct';
 
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
           <Route path="/ProductForm" element={<AddNewProduct />}/>
           <Route path="/login" element={<Login />} />
           <Route path='/Register' element={<Register />}/>
+          <Route path="/AddNewProduct" element={<AddNewProduct />} />
+          <Route path="/EditProduct" element={<EditProduct />} />
         </Routes>
         <Footer />
       </div>
