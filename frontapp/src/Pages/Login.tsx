@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  setIsAuthenticated: (isAuth: boolean) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +31,10 @@ const Login: React.FC = () => {
 
     if (response.ok) {
       localStorage.setItem("authToken", data.token);
+      
+      // ✅ Update authentication state immediately
+      setIsAuthenticated(true);
+      
       setMessage("✅ Logged in successfully!");
       navigate("/"); 
     } else {

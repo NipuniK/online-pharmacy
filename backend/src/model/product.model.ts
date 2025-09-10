@@ -8,6 +8,7 @@ export interface IProduct extends Document {
   price: number;
   category?: string;
   stock: number;
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,17 +17,18 @@ export interface IProduct extends Document {
 const productSchema = new Schema<IProduct>({
   brand_name: { type: String, required: true },
   pharm_name: { type: String, required: true },
-  price: { type: Number },
-  description: { type: String },
+  price: { type: Number, required: true },
+  description: { type: String, required: true },
   category: { type: String },
-  stock: { type: Number},
+  stock: { type: Number, required: true },
+  imageUrl: { type: String }, // Add imageUrl field
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
 
 // Pre-save hook to update the updatedAt field
 productSchema.pre('save', function (next) {
-  this.updatedAt = new Date();
+  (this as any).updatedAt = new Date();
   next();
 });
 

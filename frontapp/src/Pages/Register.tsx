@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register: React.FC = () => {
+interface RegisterProps {
+  setIsAuthenticated: (isAuth: boolean) => void;
+}
+
+const Register: React.FC<RegisterProps> = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +30,10 @@ const Register: React.FC = () => {
 
     if (response.ok) {
       localStorage.setItem("authToken", data.token);
+      
+      // ✅ Update authentication state immediately
+      setIsAuthenticated(true);
+      
       setMessage("✅ Registered and logged in successfully!");
       navigate("/"); 
     } else {

@@ -1,31 +1,79 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-
-const AdminNav: React.FC = () =>{
-return(
-<nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <a className="navbar-brand" href="#">Navbar</a>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-  <div className="collapse navbar-collapse" id="navbarNav">
-    <ul className="navbar-nav">
-      <li className="nav-item active">
-        <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/Medicines">All Products</Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/ProductForm">Add new Product</Link>
-      </li>
-      
-    </ul>
-  </div>
-</nav>
-
-);
-
+interface AdminNavProps {
+  setIsAuthenticated: (isAuth: boolean) => void;
 }
+
+const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    
+    // ✅ Update authentication state immediately
+    setIsAuthenticated(false);
+    
+    setMessage("✅ Logged out successfully!");
+    navigate("/Login");
+  };
+
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light bg-primary">
+        <a className="navbar-brand text-white" href="#">
+          Admin Panel
+        </a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav me-auto">
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/Medicines">
+                All Products
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/Contact">
+                Contact Us
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-white" to="/AddNewProduct">
+                Add New Product
+              </Link>
+            </li>
+          </ul>
+
+          <button onClick={handleLogout} className="btn btn-danger ms-2">
+            Logout
+          </button>
+        </div>
+      </nav>
+
+      {message && (
+        <div className="container mt-2">
+          <div className="alert alert-info">{message}</div>
+        </div>
+      )}
+    </>
+  );
+};
+
 export default AdminNav;

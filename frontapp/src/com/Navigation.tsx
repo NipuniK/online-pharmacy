@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  setIsAuthenticated: (isAuth: boolean) => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -14,6 +18,10 @@ const Navigation: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     setIsLoggedIn(false);
+    
+    // ✅ Update authentication state immediately
+    setIsAuthenticated(false);
+    
     setMessage("✅ Logged out successfully!");
     navigate("/Login");
   };

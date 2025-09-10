@@ -20,7 +20,7 @@ function App() {
 
   // Check if a token exists in localStorage to determine if the user is logged in
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       setIsAuthenticated(true);  // User is logged in
     } else {
@@ -32,18 +32,17 @@ function App() {
       <div className="App">
 
         
-      {isAuthenticated ? <AdminNav /> : <Navigation />}
+      {isAuthenticated ? <AdminNav setIsAuthenticated={setIsAuthenticated} /> : <Navigation setIsAuthenticated={setIsAuthenticated} />}
 
         
         <Routes>
-          
-        <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/Login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/Medicines" element={<Medicines />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/ProductForm" element={<AddNewProduct />}/>
-          <Route path="/login" element={<Login />} />
-          <Route path='/Register' element={<Register />}/>
+          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path='/Register' element={<Register setIsAuthenticated={setIsAuthenticated} />}/>
           <Route path="/AddNewProduct" element={<AddNewProduct />} />
           <Route path="/EditProduct" element={<EditProduct />} />
         </Routes>
