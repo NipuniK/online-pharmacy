@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 interface ProductDescriptionProps {
   _id: string;
@@ -49,7 +50,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
 
 
   return (
-    <div className="card mb-3" style={{ maxWidth: "540px" }}>
+    <div className="pharm-card mb-3" style={{ maxWidth: "540px" }}>
       <div className="row g-0">
         <div className="col-md-4">
           <img
@@ -70,6 +71,24 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
             {isLoggedIn && (
               <button className="btn btn-warning mt-2" onClick={handleEdit}>
                 ✏️ Edit
+              </button>
+            )}
+            {isLoggedIn && (
+              <button
+                className="btn pharm-btn-outline ms-2 mt-2"
+                onClick={async () => {
+                  if (!confirm("Are you sure you want to delete this product?")) return;
+                  try {
+                    await api.delete(`/products/${_id}`);
+                    alert("Product deleted");
+                    navigate("/Medicines");
+                  } catch (err) {
+                    console.error("Delete failed:", err);
+                    alert("Failed to delete product");
+                  }
+                }}
+              >
+                🗑️ Delete
               </button>
             )}
           </div>

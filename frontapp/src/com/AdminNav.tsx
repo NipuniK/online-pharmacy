@@ -11,7 +11,7 @@ const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    
+    localStorage.removeItem("isAdmin");
     // ✅ Update authentication state immediately
     setIsAuthenticated(false);
     
@@ -21,7 +21,7 @@ const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-light pharm-navbar admin">
         <a className="navbar-brand text-white" href="#">
           Admin Panel
         </a>
@@ -61,7 +61,7 @@ const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
             </li>
           </ul>
 
-          <button onClick={handleLogout} className="btn btn-danger ms-2">
+          <button onClick={handleLogout} className="btn pharm-btn-primary ms-2">
             Logout
           </button>
         </div>

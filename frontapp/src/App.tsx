@@ -11,6 +11,7 @@ import AddNewProduct from './adminPages/AddNewProduct';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import React, { useEffect, useState } from 'react';
+import './styles/theme.css';
 import EditProduct from './adminPages/EditProduct';
 
 

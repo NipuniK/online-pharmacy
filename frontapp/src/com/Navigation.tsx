@@ -17,6 +17,7 @@ const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("isAdmin");
     setIsLoggedIn(false);
     
     // ✅ Update authentication state immediately
@@ -28,7 +29,7 @@ const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-warning">
+      <nav className="navbar navbar-expand-lg navbar-light pharm-navbar">
         <button
           className="navbar-toggler"
           type="button"
@@ -69,11 +70,11 @@ const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
           </ul>
 
           {isLoggedIn ? (
-            <button onClick={handleLogout} className="btn btn-danger ms-2">
+            <button onClick={handleLogout} className="btn pharm-btn-primary ms-2">
               Logout
             </button>
           ) : (
-            <Link to="/Login" className="btn btn-success ms-2">
+            <Link to="/Login" className="btn pharm-btn-primary ms-2">
               Login
             </Link>
           )}

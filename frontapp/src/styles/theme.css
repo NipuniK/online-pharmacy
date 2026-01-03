@@ -1,0 +1,118 @@
+:root{
+  --pharm-primary: #0d9488; /* teal */
+  --pharm-deep: #064c49; /* deep teal */
+  --pharm-accent: #f59e0b; /* amber accent */
+  --pharm-bg: #f8fafc; /* light */
+  --pharm-text: #0f172a; /* slate-900 */
+  --pharm-card: #ffffff;
+  --pharm-muted: #64748b;
+}
+
+body{
+  background: var(--pharm-bg);
+  color: var(--pharm-text);
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Navbar */
+.pharm-navbar{
+  background: linear-gradient(90deg, rgba(13,148,136,1) 0%, rgba(6,95,86,1) 100%);
+  box-shadow: 0 6px 18px rgba(13,148,136,0.12);
+}
+.pharm-navbar .navbar-brand, .pharm-navbar .nav-link, .pharm-navbar .btn{
+  color: #fff !important;
+}
+.pharm-navbar .nav-link{
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+}
+
+/* Admin variant */
+.pharm-navbar.admin{
+  background: linear-gradient(90deg, rgba(6,95,86,1) 0%, rgba(4,74,72,1) 100%);
+}
+
+/* Buttons */
+.pharm-btn-primary{
+  background: var(--pharm-primary);
+  color: #fff;
+  border: none;
+}
+.pharm-btn-outline{
+  border: 1px solid rgba(13,148,136,0.15);
+  color: var(--pharm-primary);
+  background: transparent;
+}
+
+/* Global Bootstrap button overrides to match pharmacy theme */
+.btn-primary,
+.btn-success {
+  background-color: var(--pharm-primary) !important;
+  border-color: var(--pharm-primary) !important;
+  color: #fff !important;
+}
+.btn-primary:hover,
+.btn-success:hover {
+  background-color: var(--pharm-deep) !important;
+  border-color: var(--pharm-deep) !important;
+}
+.btn-danger {
+  /* use deep teal for destructive actions to keep palette consistent */
+  background-color: var(--pharm-deep) !important;
+  border-color: var(--pharm-deep) !important;
+  color: #fff !important;
+}
+.btn-outline-primary {
+  color: var(--pharm-primary) !important;
+  border-color: var(--pharm-primary) !important;
+  background: transparent !important;
+}
+.btn-outline-primary:hover {
+  background-color: rgba(13,148,136,0.06) !important;
+}
+
+/* Links and badges */
+.text-accent{
+  color: var(--pharm-primary) !important;
+}
+
+/* Cards */
+.pharm-card{
+  background: var(--pharm-card);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+  padding: 1rem;
+}
+
+.pharm-card img{
+  object-fit: cover;
+  height: 120px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Buttons group */
+.pharm-filter .btn{
+  border-radius: 999px;
+}
+
+/* Footer */
+.pharm-footer{
+  background: linear-gradient(180deg, rgba(13,148,136,0.04), transparent);
+  padding: 2rem 0;
+}
+
+/* Form elements */
+.form-control:focus{
+  box-shadow: 0 0 0 0.2rem rgba(13,148,136,0.12);
+  border-color: var(--pharm-primary);
+}
+
+/* Utility */
+.text-accent{
+  color: var(--pharm-accent) !important;
+}
+
+@media (max-width: 768px){
+  .pharm-card img{ height: 100px }
+}
