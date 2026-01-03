@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
 
 interface ProductFormData {
   _id: string;
@@ -9,6 +10,7 @@ interface ProductFormData {
   category: string;
   stock: number;
   imageUrl: string;
+  medicineType: 'Prescription Medicines' | 'Over-the-Counter (OTC)' | 'Vitamins & Supplements' | 'Personal Care';
 }
 
 interface ProductFormProps {
@@ -26,9 +28,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
     category: initialData?.category || "",
     stock: initialData?.stock || 0,
     imageUrl: initialData?.imageUrl || "",
+    medicineType: (initialData as any)?.medicineType || 'Over-the-Counter (OTC)',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -43,6 +46,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
     e.preventDefault();
     onSubmit(formData);
   };
+
+  const { id } = useParams();
+  const isEditMode = Boolean(id);
 
   return (
     <form onSubmit={handleSubmit} className="container mt-5">
@@ -111,6 +117,23 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
       </div>
 
       <div className="form-group mb-3">
+        <label htmlFor="medicineType">Medicine Type:</label>
+        <select
+          className="form-control"
+          id="medicineType"
+          name="medicineType"
+          value={formData.medicineType}
+          onChange={handleChange}
+          required
+        >
+          <option value="Prescription Medicines">Prescription Medicines</option>
+          <option value="Over-the-Counter (OTC)">Over-the-Counter (OTC)</option>
+          <option value="Vitamins & Supplements">Vitamins & Supplements</option>
+          <option value="Personal Care">Personal Care</option>
+        </select>
+      </div>
+
+      <div className="form-group mb-3">
         <label htmlFor="stock">Stock:</label>
         <input
           type="number"
@@ -150,6 +173,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
               category: '',
               stock: 0,
               imageUrl: '',
+              medicineType: 'Over-the-Counter (OTC)',
             })
           }
         >

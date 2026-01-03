@@ -12,6 +12,7 @@ interface ProductData {
   imageUrl: string;
   stock: number;
   category?: string;
+  medicineType: 'Prescription Medicines' | 'Over-the-Counter (OTC)' | 'Vitamins & Supplements' | 'Personal Care';
   createdAt?: string;
   updatedAt?: string;
 }

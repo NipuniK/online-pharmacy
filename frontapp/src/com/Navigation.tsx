@@ -29,9 +29,6 @@ const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-warning">
-        <a className="navbar-brand" href="#">
-          Navbar
-        </a>
         <button
           className="navbar-toggler"
           type="button"

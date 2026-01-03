@@ -44,7 +44,7 @@ function App() {
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path='/Register' element={<Register setIsAuthenticated={setIsAuthenticated} />}/>
           <Route path="/AddNewProduct" element={<AddNewProduct />} />
-          <Route path="/EditProduct" element={<EditProduct />} />
+          <Route path="/products/edit/:id" element={<EditProduct />} />
         </Routes>
         <Footer />
       </div>

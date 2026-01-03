@@ -27,17 +27,20 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
 
 
   const handleEdit = () => {
-    alert(`Editing ${brand_name}`);
-    navigate("/EditProduct", { state: { 
-    _id: "", // include actual id from backend
-    brand_name,
-    pharm_name,
-    description,
-    price,
-    imageUrl,
-    stock
-  }});
-  };
+  // Navigate to EditProduct route and pass the full product data in location state
+  navigate(`/EditProduct`, {
+    state: {
+      _id,
+      brand_name,
+      pharm_name,
+      description,
+      price,
+      imageUrl,
+      stock,
+    },
+  });
+};
+
 
   return (
     <div className="card mb-3" style={{ maxWidth: "540px" }}>

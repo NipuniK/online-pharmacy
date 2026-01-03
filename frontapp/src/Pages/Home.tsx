@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Carousel from "../com/Carousel";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (medicineType: string) => {
+    navigate(`/Medicines?category=${encodeURIComponent(medicineType)}`);
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -19,25 +26,41 @@ const Home: React.FC = () => {
         <h3 className="text-center mb-4">Featured Categories</h3>
         <div className="row text-center">
           <div className="col-md-3 mb-3">
-            <div className="card p-3 shadow-sm">
+            <div 
+              className="card p-3 shadow-sm" 
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCategoryClick('Prescription Medicines')}
+            >
               <i className="bi bi-capsule fs-1"></i>
               <h6 className="mt-2">Prescription Medicines</h6>
             </div>
           </div>
           <div className="col-md-3 mb-3">
-            <div className="card p-3 shadow-sm">
+            <div 
+              className="card p-3 shadow-sm" 
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCategoryClick('Over-the-Counter (OTC)')}
+            >
               <i className="bi bi-bandaid fs-1"></i>
               <h6 className="mt-2">Over-the-Counter (OTC)</h6>
             </div>
           </div>
           <div className="col-md-3 mb-3">
-            <div className="card p-3 shadow-sm">
+            <div 
+              className="card p-3 shadow-sm" 
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCategoryClick('Vitamins & Supplements')}
+            >
               <i className="bi bi-heart-pulse fs-1"></i>
               <h6 className="mt-2">Vitamins & Supplements</h6>
             </div>
           </div>
           <div className="col-md-3 mb-3">
-            <div className="card p-3 shadow-sm">
+            <div 
+              className="card p-3 shadow-sm" 
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleCategoryClick('Personal Care')}
+            >
               <i className="bi bi-person-hearts fs-1"></i>
               <h6 className="mt-2">Personal Care</h6>
             </div>

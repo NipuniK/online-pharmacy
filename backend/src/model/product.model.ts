@@ -9,6 +9,7 @@ export interface IProduct extends Document {
   category?: string;
   stock: number;
   imageUrl?: string;
+  medicineType: 'Prescription Medicines' | 'Over-the-Counter (OTC)' | 'Vitamins & Supplements' | 'Personal Care';
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,7 +22,12 @@ const productSchema = new Schema<IProduct>({
   description: { type: String, required: true },
   category: { type: String },
   stock: { type: Number, required: true },
-  imageUrl: { type: String }, // Add imageUrl field
+  imageUrl: { type: String },
+  medicineType: { 
+    type: String, 
+    required: true,
+    enum: ['Prescription Medicines', 'Over-the-Counter (OTC)', 'Vitamins & Supplements', 'Personal Care']
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
