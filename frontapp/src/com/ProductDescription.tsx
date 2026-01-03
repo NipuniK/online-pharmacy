@@ -80,8 +80,9 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
                   if (!confirm("Are you sure you want to delete this product?")) return;
                   try {
                     await api.delete(`/products/${_id}`);
+                    // Dispatch a global event so parent lists can update without reload
+                    window.dispatchEvent(new CustomEvent('productDeleted', { detail: { id: _id } }));
                     alert("Product deleted");
-                    navigate("/Medicines");
                   } catch (err) {
                     console.error("Delete failed:", err);
                     alert("Failed to delete product");

@@ -21,6 +21,20 @@ const Medicines: React.FC = () => {
     }
   }, [searchParams]);
 
+  // Listen for global delete events so we can remove product from the list dynamically
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const evt = e as CustomEvent<{ id: string }>;
+      const deletedId = evt?.detail?.id;
+      if (!deletedId) return;
+      setMedicines(prev => prev.filter(m => m._id !== deletedId));
+      setFilteredMedicines(prev => prev.filter(m => m._id !== deletedId));
+    };
+
+    window.addEventListener('productDeleted', handler as EventListener);
+    return () => window.removeEventListener('productDeleted', handler as EventListener);
+  }, []);
+
   const fetchMedicines = async (category: string = 'All') => {
     try {
       // Use the correct backend route: /products
