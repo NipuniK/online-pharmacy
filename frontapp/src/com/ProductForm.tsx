@@ -6,9 +6,11 @@ interface ProductFormData {
   brand_name: string;
   pharm_name: string;
   description: string;
-  price: number;
+  // keep as string in the form state to allow typing; convert on submit
+  price: number | string;
   category: string;
-  stock: number;
+  // keep as string here as well to allow empty/typing
+  stock: number | string;
   imageUrl: string;
   medicineType: 'Prescription Medicines' | 'Over-the-Counter (OTC)' | 'Vitamins & Supplements' | 'Personal Care';
 }
@@ -24,27 +26,52 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
     brand_name: initialData?.brand_name || "",
     pharm_name: initialData?.pharm_name || "",
     description: initialData?.description || "",
-    price: initialData?.price || 0,
+    price: initialData?.price != null ? initialData?.price : '',
     category: initialData?.category || "",
-    stock: initialData?.stock || 0,
+    stock: initialData?.stock != null ? initialData?.stock : '',
     imageUrl: initialData?.imageUrl || "",
     medicineType: (initialData as any)?.medicineType || 'Over-the-Counter (OTC)',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    // keep price/stock as strings while typing to avoid forcing 0 on empty input
+    if (name === "price" || name === "stock") {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+      return;
+    }
     setFormData({
       ...formData,
-      [name]:
-        name === "price" || name === "stock"
-          ? parseFloat(value) || 0
-          : value,
+      [name]: value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    const priceNum = typeof formData.price === 'string' ? parseFloat(formData.price) : formData.price;
+    const stockNum = typeof formData.stock === 'string' ? parseInt(String(formData.stock), 10) : formData.stock;
+
+    if (isNaN(Number(priceNum)) || Number(priceNum) <= 0) {
+      alert('Price must be a positive number.');
+      return;
+    }
+    if (isNaN(Number(stockNum)) || Number(stockNum) <= 0) {
+      alert('Stock must be a positive integer.');
+      return;
+    }
+
+    // convert to numeric types for submit
+    const submitData = {
+      ...formData,
+      price: Number(priceNum),
+      stock: Number(stockNum),
+    } as ProductFormData;
+
+    onSubmit(submitData);
   };
 
   const { id } = useParams();
@@ -101,6 +128,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
           value={formData.price}
           onChange={handleChange}
           required
+          min="0.01"
+          step="0.01"
+          inputMode="decimal"
         />
       </div>
 
@@ -143,6 +173,9 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
           value={formData.stock}
           onChange={handleChange}
           required
+          min="1"
+          step="1"
+          inputMode="numeric"
         />
       </div>
 
@@ -163,15 +196,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSubmit, initialData }) => {
         <button
           type="button"
           className="btn btn-outline-secondary mb-2 me-2"
-          onClick={() =>
+            onClick={() =>
             setFormData({
               _id: '',
               brand_name: '',
               pharm_name: '',
               description: '',
-              price: 0,
+              price: '',
               category: '',
-              stock: 0,
+              stock: '',
               imageUrl: '',
               medicineType: 'Over-the-Counter (OTC)',
             })

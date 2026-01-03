@@ -8,6 +8,7 @@ interface AdminNavProps {
 const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
   const [message, setMessage] = useState<string | null>(null);
+  const isLoggedIn = !!localStorage.getItem("authToken");
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -49,11 +50,13 @@ const AdminNav: React.FC<AdminNavProps> = ({ setIsAuthenticated }) => {
                 All Products
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link text-white" to="/Contact">
-                Contact Us
-              </Link>
-            </li>
+            {!isLoggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link text-white" to="/Contact">
+                  Contact Us
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link text-white" to="/AddNewProduct">
                 Add New Product

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Carousel from "../com/Carousel";
+import api from "../services/api";
+import ProductDescription from "../com/ProductDescription";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -8,6 +10,20 @@ const Home: React.FC = () => {
   const handleCategoryClick = (medicineType: string) => {
     navigate(`/Medicines?category=${encodeURIComponent(medicineType)}`);
   };
+
+  const [featured, setFeatured] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    const loadFeatured = async () => {
+      try {
+        const res = await api.get(`/products?category=${encodeURIComponent('Personal Care')}`);
+        setFeatured(res.data.slice(0, 4)); // show up to 4 featured
+      } catch (err) {
+        console.error('Failed to load featured products', err);
+      }
+    };
+    loadFeatured();
+  }, []);
 
   return (
     <>
@@ -68,24 +84,37 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Featured Products */}
+      {/* Featured Personal Care Products (dynamic) */}
       <div className="container my-5">
-        <h3 className="text-center mb-4">Featured Products</h3>
-        <div className="row text-center">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="col-md-3 mb-3">
-              <div className="card p-3 shadow-sm">
-                <img
-                  src={`product${item}.jpg`}
-                  alt={`Product ${item}`}
-                  className="img-fluid mb-2"
+        <h3 className="text-center mb-4">Featured Personal Care</h3>
+        <div className="row">
+          {featured.length > 0 ? (
+            featured.map((p) => (
+              <div key={p._id} className="col-md-3 mb-3">
+                <ProductDescription
+                  _id={p._id}
+                  brand_name={p.brand_name}
+                  pharm_name={p.pharm_name}
+                  description={p.description}
+                  price={p.price}
+                  imageUrl={p.imageUrl || ''}
+                  stock={p.stock}
+                  category={p.category}
+                  medicineType={p.medicineType}
+                  showControls={false}
                 />
-                <h6>Product {item}</h6>
-                <p>$15</p>
-                <button className="btn btn-sm btn-primary">Add to Cart</button>
               </div>
+            ))
+          ) : (
+            <div className="col-12 text-center">
+              <p className="text-muted">No featured Personal Care products available.</p>
             </div>
-          ))}
+          )}
+        </div>
+        <div className="text-center mt-3">
+          <button className="btn btn-outline-primary" onClick={() => handleCategoryClick('Personal Care')}>
+            View all Personal Care
+          </button>
         </div>
       </div>
 
@@ -120,7 +149,6 @@ const Home: React.FC = () => {
 
       {/* Footer */}
       <div className="bg-dark text-white text-center py-4">
-        <p className="mb-0">© 2025 Health Mart | All Rights Reserved</p>
       </div>
     </>
   );

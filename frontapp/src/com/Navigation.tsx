@@ -54,11 +54,13 @@ const Navigation: React.FC<NavigationProps> = ({ setIsAuthenticated }) => {
                 Our Products
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/Contact">
-                Contact Us
-              </Link>
-            </li>
+            {!isLoggedIn && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/Contact">
+                  Contact Us
+                </Link>
+              </li>
+            )}
             
             {isLoggedIn && (
               <li className="nav-item">

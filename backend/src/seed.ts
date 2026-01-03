@@ -13,7 +13,7 @@ const products = [
     category: "Antibiotic",
     stock: 50,
     medicineType: "Prescription Medicines",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?antibiotic,medicine"
   },
   {
     brand_name: "GSK",
@@ -23,7 +23,7 @@ const products = [
     category: "Diabetes",
     stock: 40,
     medicineType: "Prescription Medicines",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?diabetes,medicine"
   },
   {
     brand_name: "Johnson & Johnson",
@@ -33,7 +33,7 @@ const products = [
     category: "Pain Relief",
     stock: 120,
     medicineType: "Over-the-Counter (OTC)",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?painkiller,medicine"
   },
   {
     brand_name: "Reckitt",
@@ -43,7 +43,7 @@ const products = [
     category: "Cold & Flu",
     stock: 90,
     medicineType: "Over-the-Counter (OTC)",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?lozenges,throat"
   },
   {
     brand_name: "Nature Made",
@@ -53,7 +53,7 @@ const products = [
     category: "Vitamins",
     stock: 70,
     medicineType: "Vitamins & Supplements",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?vitamin-c,supplement"
   },
   {
     brand_name: "Blackmores",
@@ -63,7 +63,7 @@ const products = [
     category: "Supplements",
     stock: 60,
     medicineType: "Vitamins & Supplements",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?fish-oil,supplement"
   },
   {
     brand_name: "Himalaya",
@@ -73,7 +73,7 @@ const products = [
     category: "Skin Care",
     stock: 80,
     medicineType: "Personal Care",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?skincare,facewash"
   },
   {
     brand_name: "Dettol",
@@ -83,7 +83,88 @@ const products = [
     category: "Hygiene",
     stock: 100,
     medicineType: "Personal Care",
-    imageUrl: "https://via.placeholder.com/150"
+    imageUrl: "https://source.unsplash.com/600x400/?antiseptic,hygiene"
+  }
+  ,
+  {
+    brand_name: "Lupin",
+    pharm_name: "Amlodipine 5mg",
+    description: "Used to treat high blood pressure and angina.",
+    price: 700,
+    category: "Cardiovascular",
+    stock: 60,
+    medicineType: "Prescription Medicines",
+    imageUrl: "https://source.unsplash.com/600x400/?blood-pressure,medicine"
+  },
+  {
+    brand_name: "Cipla",
+    pharm_name: "Atorvastatin 10mg",
+    description: "Cholesterol-lowering medication for cardiovascular risk.",
+    price: 950,
+    category: "Cardiovascular",
+    stock: 45,
+    medicineType: "Prescription Medicines",
+    imageUrl: "https://source.unsplash.com/600x400/?cholesterol,medicine"
+  },
+  {
+    brand_name: "Bayer",
+    pharm_name: "Ibuprofen 200mg",
+    description: "Pain reliever and anti-inflammatory (OTC).",
+    price: 250,
+    category: "Pain Relief",
+    stock: 200,
+    medicineType: "Over-the-Counter (OTC)",
+    imageUrl: "https://source.unsplash.com/600x400/?ibuprofen,pain"
+  },
+  {
+    brand_name: "Tums",
+    pharm_name: "Antacid Tablets",
+    description: "Relieves heartburn and indigestion.",
+    price: 300,
+    category: "Digestive",
+    stock: 150,
+    medicineType: "Over-the-Counter (OTC)",
+    imageUrl: "https://source.unsplash.com/600x400/?antacid,digestive"
+  },
+  {
+    brand_name: "Garden of Life",
+    pharm_name: "Vitamin D 2000IU",
+    description: "Supports bone and immune health.",
+    price: 1400,
+    category: "Vitamins",
+    stock: 80,
+    medicineType: "Vitamins & Supplements",
+    imageUrl: "https://source.unsplash.com/600x400/?vitamin-d,supplement"
+  },
+  {
+    brand_name: "NOW Foods",
+    pharm_name: "Multivitamin Adult",
+    description: "Daily multivitamin for general wellness.",
+    price: 1800,
+    category: "Vitamins",
+    stock: 70,
+    medicineType: "Vitamins & Supplements",
+    imageUrl: "https://source.unsplash.com/600x400/?multivitamin,supplement"
+  },
+  {
+    brand_name: "Dove",
+    pharm_name: "Moisturizing Lotion",
+    description: "Daily moisturizing lotion for dry skin.",
+    price: 1200,
+    category: "Skin Care",
+    stock: 90,
+    medicineType: "Personal Care",
+    imageUrl: "https://source.unsplash.com/600x400/?lotion,skincare"
+  },
+  {
+    brand_name: "Sanitex",
+    pharm_name: "Hand Sanitizer 500ml",
+    description: "Kills germs and bacteria on the hands.",
+    price: 650,
+    category: "Hygiene",
+    stock: 140,
+    medicineType: "Personal Care",
+    imageUrl: "https://source.unsplash.com/600x400/?hand-sanitizer,hygiene"
   }
 ];
 

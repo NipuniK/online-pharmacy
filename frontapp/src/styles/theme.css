@@ -98,9 +98,13 @@ body{
 
 /* Footer */
 .pharm-footer{
-  background: linear-gradient(180deg, rgba(13,148,136,0.04), transparent);
+  background: linear-gradient(180deg, rgba(6,95,86,1) 0%, rgba(3,40,38,1) 100%);
+  color: #f8fafc;
   padding: 2rem 0;
 }
+.pharm-footer a{ color: rgba(248,250,252,0.92); }
+.pharm-footer .small, .pharm-footer p, .pharm-footer li{ color: rgba(248,250,252,0.9); }
+.pharm-footer .fw-bold{ color: #ffffff; }
 
 /* Form elements */
 .form-control:focus{

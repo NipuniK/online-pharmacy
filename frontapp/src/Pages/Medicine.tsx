@@ -8,6 +8,7 @@ const Medicines: React.FC = () => {
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [filteredMedicines, setFilteredMedicines] = useState<Medicine[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -50,6 +51,27 @@ const Medicines: React.FC = () => {
   const handleCategoryFilter = (category: string) => {
     setSelectedCategory(category);
     fetchMedicines(category);
+  };
+
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const term = searchTerm.trim().toLowerCase();
+    if (!term) {
+      setFilteredMedicines(medicines);
+      return;
+    }
+    const filtered = medicines.filter((m) => {
+      const brand = (m.brand_name || '').toString().toLowerCase();
+      const pharm = (m.pharm_name || '').toString().toLowerCase();
+      const desc = (m.description || '').toString().toLowerCase();
+      return brand.includes(term) || pharm.includes(term) || desc.includes(term);
+    });
+    setFilteredMedicines(filtered);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm('');
+    setFilteredMedicines(medicines);
   };
 
     return (
@@ -97,6 +119,20 @@ const Medicines: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Search */}
+        <form className="mb-3 d-flex" onSubmit={handleSearch}>
+          <input
+            type="search"
+            className="form-control me-2"
+            placeholder="Search by medicine or brand"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Search medicines"
+          />
+          <button className="btn btn-primary me-2" type="submit">Search</button>
+          <button className="btn btn-outline-secondary" type="button" onClick={clearSearch}>Clear</button>
+        </form>
 
         {/* Results Count */}
         <div className="mb-3">
