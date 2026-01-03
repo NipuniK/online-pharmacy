@@ -1,7 +1,8 @@
 // src/Pages/EditProduct.tsx
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ProductForm from "../com/ProductForm";
+import api from "../services/api";
 
 interface ProductData {
   _id: string;
@@ -22,19 +23,40 @@ const EditProduct: React.FC = () => {
   const navigate = useNavigate();
   const [productData, setProductData] = useState<ProductData | null>(null);
 
-  // Get product data from location state
+  // Get product data from location state or fetch by id param
+  const { id } = useParams();
+
   useEffect(() => {
-    if (location.state && (location.state as ProductData)._id) {
-      setProductData(location.state as ProductData);
-    } else {
-      alert("No product data found to edit!");
-      navigate("/Medicines"); // redirect if no data
+    const stateData = location.state as ProductData | undefined;
+    if (stateData && stateData._id) {
+      setProductData(stateData);
+      return;
     }
-  }, [location.state, navigate]);
+
+    // If no state, try fetching by id param
+    const fetchById = async (productId?: string) => {
+      if (!productId) {
+        alert("No product data found to edit!");
+        navigate("/Medicines");
+        return;
+      }
+      try {
+        const response = await api.get(`/products/${productId}`);
+        setProductData(response.data as ProductData);
+      } catch (error) {
+        console.error("Failed to fetch product for edit:", error);
+        alert("Product not found");
+        navigate("/Medicines");
+      }
+    };
+
+    fetchById(id);
+  }, [location.state, navigate, id]);
 
   const handleFormSubmit = async (data: ProductData) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productData?._id}`, {
+      const productId = productData?._id || id;
+      const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
         method: "PUT", // update existing product
         headers: {
           "Content-Type": "application/json",

@@ -97,16 +97,18 @@ const Medicines: React.FC = () => {
           {filteredMedicines.length > 0 ? (
             filteredMedicines.map((medicine: Medicine) => (
               <div className="col-md-6 mb-4" key={medicine._id}>
-                <ProductDescription
-                  key={medicine._id}
-                  brand_name={medicine.brand_name}
-                  pharm_name={medicine.pharm_name}
-                  description={medicine.description}
-                  price={medicine.price}
-                  imageUrl={medicine.imageUrl}
-                  stock={medicine.stock}
-                  _id={medicine._id}
-                />
+                  <ProductDescription
+                    key={medicine._id}
+                    brand_name={medicine.brand_name}
+                    pharm_name={medicine.pharm_name}
+                    description={medicine.description}
+                    price={medicine.price}
+                    imageUrl={medicine.imageUrl}
+                    stock={medicine.stock}
+                    _id={medicine._id}
+                    category={medicine.category}
+                    medicineType={medicine.medicineType}
+                  />
               </div>
             ))
           ) : (

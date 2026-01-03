@@ -9,6 +9,8 @@ interface ProductDescriptionProps {
   price: number;
   imageUrl: string;
   stock: number;
+  category?: string;
+  medicineType?: string;
 }
 
 const ProductDescription: React.FC<ProductDescriptionProps> = ({
@@ -19,6 +21,8 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
   price,
   imageUrl,
   stock,
+  category,
+  medicineType,
 }) => {
   const navigate = useNavigate();
 
@@ -27,19 +31,21 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
 
 
   const handleEdit = () => {
-  // Navigate to EditProduct route and pass the full product data in location state
-  navigate(`/EditProduct`, {
-    state: {
-      _id,
-      brand_name,
-      pharm_name,
-      description,
-      price,
-      imageUrl,
-      stock,
-    },
-  });
-};
+    // Navigate to edit route and pass the full product data in location state
+    navigate(`/products/edit/${_id}`, {
+      state: {
+        _id,
+        brand_name,
+        pharm_name,
+        description,
+        price,
+        imageUrl,
+        stock,
+        category,
+        medicineType,
+      },
+    });
+  };
 
 
   return (
